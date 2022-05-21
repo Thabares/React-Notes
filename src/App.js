@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import styled, { css } from 'styled-components';
 import Home from "./pages/Home";
 import Login from "./pages/Login";
@@ -29,12 +29,17 @@ display: none
 
 
 function App() {
+  const user = false
   return (
     <BaseContainer>
       <CircleShape />
       <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/home" element={<Home />} />
+        <Route path="/" element={user ? <Navigate replace to="/home" /> : <Login />} />
+        <Route path="/home" element={!user ? <Navigate replace to="/" /> : <Home />} />
+        <Route
+          path="*"
+          element={<Navigate to="/" replace />}
+        />
       </Routes>
     </BaseContainer>
   );
