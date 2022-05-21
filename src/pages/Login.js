@@ -2,6 +2,8 @@ import styled, { css } from 'styled-components';
 import PersonAddAltIcon from '@mui/icons-material/PersonAddAlt';
 import LoginIcon from '@mui/icons-material/Login';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
 
 const LoginContainer = styled.div`
 display: flex;
@@ -159,10 +161,15 @@ margin: 2rem;
 
 const Login = () => {
     const [formFields, setFormFields] = useState({ cardView: "login", email: "", password: "" })
+    const navigate = useNavigate()
 
+    
     const handleSubmit = (event) => {
         event.preventDefault()
         console.log(formFields)
+        navigate('/home')
+
+
     }
 
     return (

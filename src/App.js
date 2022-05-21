@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import styled, { css } from 'styled-components';
+import Home from "./pages/Home";
 import Login from "./pages/Login";
 
 const BaseContainer = styled.div`
@@ -33,6 +34,7 @@ function App() {
       <CircleShape />
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
     </BaseContainer>
   );
