@@ -6,6 +6,9 @@ import Login from "./pages/Login";
 const BaseContainer = styled.div`
 height: 100vh;
 background-color: #efefef;
+min-height: 100vh;
+max-height: 100%;
+height: 100%;
 `
 
 const Shape = css`
@@ -29,17 +32,19 @@ display: none
 
 
 function App() {
-  const user = false
+  // const user = false
   return (
     <BaseContainer>
       <CircleShape />
       <Routes>
-        <Route path="/" element={user ? <Navigate replace to="/home" /> : <Login />} />
+        <Route path="/" element={<Login />} />
+        <Route path="/home" element={<Home />} />
+        {/* <Route path="/" element={user ? <Navigate replace to="/home" /> : <Login />} />
         <Route path="/home" element={!user ? <Navigate replace to="/" /> : <Home />} />
         <Route
           path="*"
           element={<Navigate to="/" replace />}
-        />
+        /> */}
       </Routes>
     </BaseContainer>
   );

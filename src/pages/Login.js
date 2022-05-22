@@ -161,15 +161,12 @@ margin: 2rem;
 
 const Login = () => {
     const [formFields, setFormFields] = useState({ cardView: "login", email: "", password: "" })
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
-    
     const handleSubmit = (event) => {
         event.preventDefault()
         console.log(formFields)
         navigate('/home')
-
-
     }
 
     return (
