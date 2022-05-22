@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 import SearchIcon from '@mui/icons-material/Search';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 const ContentContainer = styled.div`
 padding: 30px;
@@ -11,7 +11,7 @@ justify-content: center;
 `
 
 const InputContainer = styled.div`
-border: 3px solid grey;
+outline: 3px solid grey;
 border-radius: 5px;
 * {
     background-color: ${props => props.color ? "#" + props.color : '#fff'};
@@ -25,7 +25,10 @@ outline: none;
 padding: 5px 10px;
 font-size: 18px;
 width: 500px;
-
+color: ${props => props.color ? "#fff" : '#000'};
+&::placeholder {
+    color: ${props => props.color ? "#fff" : '#000'};
+}
 `
 
 const StyledTextArea = styled.textarea`
@@ -46,6 +49,7 @@ width: 525px;
 `
 
 const CardContainer = styled.div`
+border: 1px solid #fff;
 background-color: ${props => props.color ? "#" + props.color : '#fff'};
 height: 30px;
 width: 30px;
@@ -107,16 +111,24 @@ const Content = () => {
             cardColor: "fff"
         })
     }
+
+    useEffect(() => {
+        window.addEventListener('click', function (e) {
+            if (!document.getElementById('clickbox').contains(e.target)) {
+                handleOnBlurChange()
+            }
+        });
+    }, [])
     return (
         <ContentContainer>
-            <InputContainer color={formFields.cardColor}>
+            <InputContainer color={formFields.cardColor} id="clickbox">
                 <SearchInputContainer>
                     <SearchInput type="text"
                         placeholder='Take a note'
                         value={formFields.subject}
                         onChange={(e) => setFormFields({ ...formFields, subject: e.target.value })}
                         onFocus={() => setIsNoteInputTouched(true)}
-                        onBlur={() => setIsNoteInputTouched(false)}
+                        color={formFields.cardColor !== "fff"}
                     />
                 </SearchInputContainer>
                 {isNoteInputTouched || formFields.subject.length > 0 ?
@@ -127,8 +139,6 @@ const Content = () => {
                                 cols="50"
                                 value={formFields.content}
                                 onChange={(e) => setFormFields({ ...formFields, content: e.target.value })}
-                                onFocus={() => setIsNoteInputTouched(true)}
-                                onBlur={() => handleOnBlurChange()}
                             />
                         </SearchInputContainer>
                         <InputButtonsGroup>
