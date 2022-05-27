@@ -66,8 +66,6 @@ transition: transform .2s;
 
 const Content = () => {
     const [isNoteInputTouched, setIsNoteInputTouched] = useState(false)
-
-
     const colorCodes = [
         "f44336",
         "e91e63",
@@ -88,12 +86,13 @@ const Content = () => {
         "9e9e9e",
         "607d8b"
     ]
-
     const [formFields, setFormFields] = useState({
         subject: "",
         content: "",
         cardColor: "fff"
     })
+    const [cardValues, setCardValues] = useState([])
+    const [clicked, setClicked] = useState(false)
 
 
     const handleCardColor = (selectedColor) => {
@@ -103,22 +102,32 @@ const Content = () => {
         })
     }
 
-    const handleOnBlurChange = () => {
+    useEffect(() => {
         setIsNoteInputTouched(false)
         setFormFields({
             subject: "",
             content: "",
             cardColor: "fff"
         })
-    }
+    }, [cardValues])
+
+
+    useEffect(() => {
+        if (formFields.subject) {
+            setCardValues([...cardValues, formFields])
+        }
+    }, [clicked])
+
 
     useEffect(() => {
         window.addEventListener('click', function (e) {
             if (!document.getElementById('clickbox').contains(e.target)) {
-                handleOnBlurChange()
+                setClicked(true)
             }
         });
     }, [])
+
+
     return (
         <ContentContainer>
             <InputContainer color={formFields.cardColor} id="clickbox">
@@ -149,7 +158,6 @@ const Content = () => {
                     </>
                     : <></>
                 }
-
             </InputContainer>
         </ContentContainer>
     )
