@@ -25,9 +25,9 @@ outline: none;
 padding: 5px 10px;
 font-size: 18px;
 width: 500px;
-color: ${props => props.color ? "#fff" : '#000'};
+color: ${props => props.color};
 &::placeholder {
-    color: ${props => props.color ? "#fff" : '#000'};
+    color: ${props => props.color};
 }
 `
 
@@ -137,7 +137,7 @@ const Content = () => {
                         value={formFields.subject}
                         onChange={(e) => setFormFields({ ...formFields, subject: e.target.value })}
                         onFocus={() => setIsNoteInputTouched(true)}
-                        color={formFields.cardColor !== "fff"}
+                        color={formFields.cardColor !== "fff" ? "#fff" : "#000"}
                     />
                 </SearchInputContainer>
                 {isNoteInputTouched || formFields.subject.length > 0 ?
